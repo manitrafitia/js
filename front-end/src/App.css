@@ -28,7 +28,7 @@ form .btn{
 }
 
 .modal-custom{
-    border-radius: 30px;
+    border-radius: 10px;
 }
 .modal-custom form .title h4{
     text-align: center;
@@ -155,9 +155,21 @@ thead{
     font-size: large;
     color: white;
     font-weight: bold;
-    margin-left: 5px;
+    margin-left: 200px;
 }
 
 .bouton-diagramme:hover{
     background-color: #f87008;
+}
+
+.chart-container {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.pie{
+    justify-content: center;
+    align-items: center;
 }

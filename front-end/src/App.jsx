@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <h2 className="text-center">Gestion des matériels</h2>
+      <h2 className="text-center mt-3 mb-5">Gestion des matériels</h2>
       <BrowserRouter>
         <Routes>         
           <Route path='/' element={<Materiels />} />

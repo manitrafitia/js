@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 
 const Diagramme = () => {
     const [data, setData] = useState([]);
+    const [reloadDiagram, setReloadDiagram] = useState(false); 
+    const chartRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,10 +18,13 @@ const Diagramme = () => {
         };
 
         fetchData();
-    }, []);
+    }, [reloadDiagram]); 
 
     useEffect(() => {
         if (data.length > 0) {
+            if (chartRef.current !== null) {
+                chartRef.current.destroy(); 
+            }
             generateChart();
         }
     }, [data]);
@@ -33,7 +38,29 @@ const Diagramme = () => {
             arrangedData[item._id - 1] = item.totalQuantite;
         });
 
-        new Chart(document.getElementById('camembert'), {
+        const chartOptions = {
+            animation: {
+                duration: 1200,
+                easing: 'easeOutCirc',
+                delay: 50,
+            },
+            plugins: {
+                tooltip: {
+                    enabled: true
+                },
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                    }
+                }
+            },
+            layout: {
+                padding: 0 
+            },
+            responsive: true
+        };
+
+        const chartConfig = {
             type: 'pie',
             data: {
                 labels: labels,
@@ -43,33 +70,31 @@ const Diagramme = () => {
                     hoverOffset: 15
                 }]
             },
-            options: {
-                animation: {
-                    duration: 1200,
-                    easing: 'easeOutCirc',
-                    delay: 50,
-                },
-                plugins: {
-                    tooltip: {
-                        enabled: true
-                    },
-                 
-                    legend: {
-                        labels: {
-                            usePointStyle: true,
-                        }
-                    }
-                },
-                radius: '30%',
-                responsive: true
-            }
-        });
+            options: chartOptions
+        };
+
+        const chartContainer = document.getElementById('camembert');
+        chartRef.current = new Chart(chartContainer, chartConfig);
+    };
+
+ 
+    const forceReloadDiagram = () => {
+        setReloadDiagram(prevState => !prevState);
     };
 
     return (
-        <div className="chart-container">
+        <>
+        
+             <div className="chart-container mx-auto my-5" style={{ width: '400px', height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <canvas id="camembert" className="pie"></canvas>
+            
         </div>
+        <div className="justify-content-center m-5">
+        <button onClick={forceReloadDiagram} className="reload-diagram-button bouton-diagramme">Recharger</button>
+        </div>
+        
+        </>
+       
     );
 };
 

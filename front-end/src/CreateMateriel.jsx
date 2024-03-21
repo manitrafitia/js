@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 function CreateMateriel({ closeModal }) {
 
-    /////////////axios
     const [num_materiel, setNum_materiel] = useState();
     const [design, setDesign] = useState();
     const [etat, setEtat] = useState();
@@ -41,7 +40,7 @@ function CreateMateriel({ closeModal }) {
                                 <option value="">Choisir un état</option>
                                 <option value={1}>Bon</option>
                                 <option value={2}>Mauvais</option>
-                                <option value={0}>Abîmé</option>
+                                <option value={3}>Abîmé</option>
                         </select>
                         </div>
                         <div className="form-group">

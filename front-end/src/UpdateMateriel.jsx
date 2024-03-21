@@ -12,7 +12,7 @@ function UpdateMateriel({ closeModal, materiel }) {
         e.preventDefault();
         try {
             const response = await axios.post(`http://localhost:3003/modifier`, {
-                num_materiel: materiel.num_materiel, // Ajout de num_materiel pour correspondre à la structure attendue par le serveur
+                num_materiel: materiel.num_materiel, 
                 design,
                 etat,
                 quantite
@@ -35,21 +35,21 @@ function UpdateMateriel({ closeModal, materiel }) {
                     <div className="body modifier">
                     <div className="form-group">
                         <label htmlFor="">Désignation</label>
-                        <input type="text" className="custom-form" value={design} onChange={(e) => setDesign(e.target.value)} />
+                        <input required type="text" className="custom-form" value={design} onChange={(e) => setDesign(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Etat</label>
-                        <select className="custom-form" value={etat} onChange={(e) => setEtat(e.target.value)}>
+                        <select required className="custom-form" value={etat} onChange={(e) => setEtat(e.target.value)}>
                             <option value="">Choisir un état</option>
                             <option value={1}>Bon</option>
                             <option value={2}>Mauvais</option>
-                            <option value={0}>Abîmé</option>
+                            <option value={3}>Abîmé</option>
                         </select>
 
                     </div>
                     <div className="form-group">
                         <label htmlFor="">Quantité</label>
-                        <input type="text" className="custom-form" value={quantite} onChange={(e) => setQuantite(e.target.value)} />
+                        <input type="number" required className="custom-form" value={quantite} onChange={(e) => setQuantite(e.target.value)} />
                     </div>
                     <div className="d-flex justify-content-center w-100 mt-4">
                             <button className="bouton-annuler" onClick={() => closeModal(false)}> Annuler </button>
